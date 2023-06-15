@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StreamingApp</string>
+    <string name="bottom_navigation_icon_description">Bottom navigation icon</string>
 </resources>
