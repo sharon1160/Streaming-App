@@ -2,33 +2,51 @@ package com.example.streamingapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.streamingapp.R
 
-// Set of Material typography styles to start with
-val Typography = Typography(
+
+val Roboto = FontFamily(
+    Font(R.font.roboto_black),
+    Font(R.font.roboto_bold, weight = FontWeight.Bold),
+    Font(R.font.roboto_light, weight = FontWeight.Light),
+    Font(R.font.roboto_thin, weight = FontWeight.Thin),
+    Font(R.font.roboto_italic, weight = FontWeight.Normal, FontStyle.Italic),
+)
+
+val typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = Roboto,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontSize = 16.sp
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+    headlineLarge = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Light,
+        fontSize = 16.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Light,
+        fontSize = 8.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = Roboto,
+        fontWeight = FontWeight.Thin,
+        fontSize = 16.sp
+    ),
+    headlineSmall = TextStyle(
+        fontFamily = Roboto,
+        fontStyle = FontStyle.Italic,
+        fontSize = 16.sp
     )
-    */
 )
