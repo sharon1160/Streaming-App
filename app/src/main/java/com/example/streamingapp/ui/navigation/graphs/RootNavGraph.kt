@@ -1,10 +1,10 @@
-package com.example.streamingapp.presentation.ui.navigation.graphs
+package com.example.streamingapp.ui.navigation.graphs
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.streamingapp.presentation.ui.base.BaseScreen
+import com.example.streamingapp.ui.base.BaseScreen
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {

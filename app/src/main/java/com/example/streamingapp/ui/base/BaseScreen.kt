@@ -1,4 +1,4 @@
-package com.example.streamingapp.presentation.ui.base
+package com.example.streamingapp.ui.base
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
@@ -21,9 +21,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.streamingapp.R
-import com.example.streamingapp.presentation.ui.navigation.BottomBarItem
-import com.example.streamingapp.presentation.ui.navigation.graphs.HomeNavGraph
-import com.example.streamingapp.presentation.ui.theme.StreamingAppTheme
+import com.example.streamingapp.ui.navigation.BottomBarItem
+import com.example.streamingapp.ui.navigation.graphs.HomeNavGraph
+import com.example.streamingapp.ui.theme.StreamingAppTheme
 
 @Composable
 fun BaseScreen() {

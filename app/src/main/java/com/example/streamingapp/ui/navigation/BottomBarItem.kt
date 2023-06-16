@@ -1,4 +1,4 @@
-package com.example.streamingapp.presentation.ui.navigation
+package com.example.streamingapp.ui.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home

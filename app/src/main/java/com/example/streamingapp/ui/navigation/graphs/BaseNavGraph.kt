@@ -1,12 +1,12 @@
-package com.example.streamingapp.presentation.ui.navigation.graphs
+package com.example.streamingapp.ui.navigation.graphs
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.streamingapp.presentation.ui.home.HomeScreen
-import com.example.streamingapp.presentation.ui.navigation.BottomBarItem
-import com.example.streamingapp.presentation.ui.player.PlayerScreen
+import com.example.streamingapp.ui.home.HomeScreen
+import com.example.streamingapp.ui.navigation.BottomBarItem
+import com.example.streamingapp.ui.player.PlayerScreen
 
 @Composable
 fun HomeNavGraph(navController: NavHostController) {

@@ -1,4 +1,4 @@
-package com.example.streamingapp.presentation.ui
+package com.example.streamingapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,8 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.streamingapp.presentation.ui.navigation.graphs.RootNavigationGraph
-import com.example.streamingapp.presentation.ui.theme.StreamingAppTheme
+import com.example.streamingapp.ui.navigation.graphs.RootNavigationGraph
+import com.example.streamingapp.ui.theme.StreamingAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.streamingapp.presentation.ui.theme
+package com.example.streamingapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
