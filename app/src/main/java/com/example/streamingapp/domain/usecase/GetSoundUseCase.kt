@@ -1,6 +1,6 @@
 package com.example.streamingapp.domain.usecase
 
-import com.example.streamingapp.data.SoundRepository
+import com.example.streamingapp.data.repository.SoundRepository
 import com.example.streamingapp.data.model.DetailedSound
 import javax.inject.Inject
 
