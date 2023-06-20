@@ -16,7 +16,7 @@ fun HomeNavGraph(navController: NavHostController) {
         startDestination =  BottomBarItem.Home.route
     ) {
         composable(route = BottomBarItem.Home.route) {
-            HomeScreen()
+            HomeScreen(navController = navController)
         }
         composable(route = BottomBarItem.Player.route) {
             PlayerScreen()
