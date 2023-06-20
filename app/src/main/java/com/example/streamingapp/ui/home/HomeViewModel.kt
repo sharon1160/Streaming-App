@@ -1,32 +1,44 @@
 package com.example.streamingapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.streamingapp.domain.usecase.GetSoundUseCase
-import com.example.streamingapp.domain.usecase.GetSoundsUseCase
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.example.streamingapp.data.model.Sound
+import com.example.streamingapp.data.repository.PaginatedSoundsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getSoundsUseCase: GetSoundsUseCase,
-    private val getSoundUseCase: GetSoundUseCase
-): ViewModel() {
+    private val paginatedSoundsRepository: PaginatedSoundsRepository
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(HomeUiState())
+    val uiState = _uiState.asStateFlow()
+
+    private val _paginatedSounds = MutableStateFlow<PagingData<Sound>>(PagingData.empty())
+    val paginatedSounds = _paginatedSounds.cachedIn(viewModelScope)
 
     fun searchAllSounds(query: String) {
-        viewModelScope.launch {
-            val result = getSoundsUseCase(query)
-            Log.e("PROBANDO","$result")
-            result?.forEach { each -> Log.e("PROBANDO","$each") }
+        paginatedSoundsRepository.getPaginatedSoundsRepository(query).onEach { paginatedSounds ->
+            _paginatedSounds.update {
+                paginatedSounds
+            }
+        }.launchIn(viewModelScope)
+        _uiState.update {
+            it.copy(query = query)
         }
     }
 
-    fun searchSoundById(id: Int) {
-        viewModelScope.launch {
-            val result = getSoundUseCase(id.toString())
-            Log.e("PROBANDO","$id ---> $result")
+    fun updateQuery(query: String) {
+        _uiState.update {
+            it.copy(query = query)
         }
     }
 }
