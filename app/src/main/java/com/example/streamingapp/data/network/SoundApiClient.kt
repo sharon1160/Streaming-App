@@ -25,7 +25,7 @@ interface SoundApiClient {
 
     companion object {
         const val PAGE = "1"
-        const val PAGE_SIZE = "2"
+        const val PAGE_SIZE = "10"
         const val FORMAT = "json"
     }
 }
