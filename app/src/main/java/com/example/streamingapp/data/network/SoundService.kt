@@ -11,9 +11,9 @@ import javax.inject.Inject
 class SoundService @Inject constructor(
     private val api: SoundApiClient
 ) {
-    suspend fun getSounds(query: String): List<Sound> {
+    suspend fun getSounds(query: String, page: String, pageSize: String): List<Sound> {
         return withContext(Dispatchers.IO) {
-            val response: Response<SoundResponse> = api.getAllSounds(query)
+            val response: Response<SoundResponse> = api.getAllSounds(query, page, pageSize)
             response.body()?.results ?: emptyList()
         }
     }

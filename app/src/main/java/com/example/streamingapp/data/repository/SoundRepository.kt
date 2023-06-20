@@ -1,4 +1,4 @@
-package com.example.streamingapp.data
+package com.example.streamingapp.data.repository
 
 import com.example.streamingapp.data.model.DetailedSound
 import com.example.streamingapp.data.model.Sound
@@ -9,8 +9,8 @@ import javax.inject.Inject
 class SoundRepository @Inject constructor(
     private val api: SoundService
 ) {
-    suspend fun getAllSounds(query: String): List<Sound> {
-        val response = api.getSounds(query)
+    suspend fun getAllSounds(query: String, page: String, pageSize: String): List<Sound> {
+        val response = api.getSounds(query, page, pageSize)
         SoundProvider.sounds = response
         return response
     }
