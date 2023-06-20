@@ -2,6 +2,8 @@ package com.example.streamingapp.di
 
 import com.example.streamingapp.data.network.AuthInterceptor
 import com.example.streamingapp.data.network.SoundApiClient
+import com.example.streamingapp.data.repository.PaginatedSoundsRepository
+import com.example.streamingapp.data.repository.PaginatedSoundsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +37,13 @@ object AppModule {
     @Provides
     fun provideApiClient(retrofit: Retrofit): SoundApiClient {
         return retrofit.create(SoundApiClient::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providePaginatedSoundsRepository(
+        paginatedSoundsRepositoryImpl: PaginatedSoundsRepositoryImpl
+    ): PaginatedSoundsRepository {
+        return paginatedSoundsRepositoryImpl
     }
 }
