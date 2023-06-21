@@ -6,4 +6,10 @@
     <string name="close_icon_content_description">Close icon content description</string>
     <string name="welcome_message">Welcome! Do a search</string>
     <string name="image_place_holder">https://cdn.freesound.org/displays/516/516693_4148049_wave_M.png</string>
+    <string name="arrow_back_content_description">Arrow back content description</string>
+    <string name="sound_not_found_message">Sound not found</string>
+    <string name="fast_rewind_icon_content_description">Fast Rewind Icon</string>
+    <string name="play_pause_icon_content_description">Play/Pause Icon</string>
+    <string name="fast_forward_icon_content_description">Fast Forward Icon</string>
+    <string name="loading_message">Loading…</string>
 </resources>
