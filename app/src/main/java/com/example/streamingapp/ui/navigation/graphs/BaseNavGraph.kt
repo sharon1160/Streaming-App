@@ -7,7 +7,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.streamingapp.ui.home.HomeScreen
-import com.example.streamingapp.ui.navigation.BottomBarItem
 import com.example.streamingapp.ui.player.PlayerScreen
 
 @Composable
@@ -15,13 +14,13 @@ fun HomeNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
-        startDestination =  BottomBarItem.Home.route
+        startDestination =  "home"
     ) {
-        composable(route = BottomBarItem.Home.route) {
+        composable(route = "home") {
             HomeScreen(navController = navController)
         }
         composable(
-            route = "${BottomBarItem.Player.route}/{id}",
+            route = "player/{id}",
             arguments = listOf(
                 navArgument("id") { type = NavType.IntType }
             )
