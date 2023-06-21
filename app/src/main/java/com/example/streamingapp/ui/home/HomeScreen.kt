@@ -65,7 +65,7 @@ fun HomeScreen(
     val paginatedSounds = homeViewModel.paginatedSounds.collectAsLazyPagingItems()
     val uiState by homeViewModel.uiState.collectAsState()
 
-    val navigateToDetail = { _: Int -> }
+    val navigateToPlayer = { id: Int -> navController.navigate("player/$id")}
 
     StreamingAppTheme {
         HomeScreenContent(
@@ -73,7 +73,7 @@ fun HomeScreen(
             homeViewModel::updateQuery,
             paginatedSounds,
             homeViewModel::searchAllSounds,
-            navigateToDetail
+            navigateToPlayer
         )
     }
 }
@@ -84,7 +84,7 @@ fun HomeScreenContent(
     updateQuery: (String) -> Unit,
     paginatedSounds: LazyPagingItems<Sound>?,
     searchAllSounds: (String) -> Unit,
-    navigateToDetail: (Int) -> Unit
+    navigateToPlayer: (Int) -> Unit
 ) {
     Scaffold {
         Column(
@@ -97,7 +97,7 @@ fun HomeScreenContent(
                 if (paginatedSounds.itemCount > 0) {
                     SoundsList(
                         paginatedSounds,
-                        navigateToDetail
+                        navigateToPlayer
                     )
                 } else {
                     Message(stringResource(R.string.welcome_message))
@@ -111,7 +111,7 @@ fun HomeScreenContent(
 }
 
 @Composable
-fun SoundsList(paginatedSounds: LazyPagingItems<Sound>, navigateToDetail: (Int) -> Unit) {
+fun SoundsList(paginatedSounds: LazyPagingItems<Sound>, navigateToPlayer: (Int) -> Unit) {
     Box {
         val isLandscape =
             LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -124,7 +124,7 @@ fun SoundsList(paginatedSounds: LazyPagingItems<Sound>, navigateToDetail: (Int) 
                     val sound = paginatedSounds[index] ?: return@items
                     ListItem(
                         sound,
-                        navigateToDetail
+                        navigateToPlayer
                     )
                 }
             }
@@ -143,7 +143,7 @@ fun SoundsList(paginatedSounds: LazyPagingItems<Sound>, navigateToDetail: (Int) 
                         val sound = paginatedSounds[index] ?: return@items
                         SoundCard(
                             sound,
-                            navigateToDetail
+                            navigateToPlayer
                         )
                     }
                 }
@@ -153,14 +153,14 @@ fun SoundsList(paginatedSounds: LazyPagingItems<Sound>, navigateToDetail: (Int) 
 }
 
 @Composable
-fun SoundCard(sound: Sound, navigateToDetail: (Int) -> Unit) {
+fun SoundCard(sound: Sound, navigateToPlayer: (Int) -> Unit) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
             .height(180.dp)
             .clickable {
-                navigateToDetail(sound.id)
+                navigateToPlayer(sound.id)
             },
         shape = MaterialTheme.shapes.small
     ) {
@@ -202,7 +202,7 @@ fun SoundCard(sound: Sound, navigateToDetail: (Int) -> Unit) {
 @Composable
 fun ListItem(
     sound: Sound,
-    navigateToDetail: (Int) -> Unit
+    navigateToPlayer: (Int) -> Unit
 ) {
     Surface(
         color = MaterialTheme.colorScheme.onPrimary,
@@ -227,7 +227,7 @@ fun ListItem(
                         )
                     }
                     .clickable {
-                        navigateToDetail(sound.id)
+                        navigateToPlayer(sound.id)
                     }
             ) {
                 AsyncImage(
