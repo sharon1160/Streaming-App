@@ -9,7 +9,7 @@ import com.example.streamingapp.data.network.AuthInterceptor
 import com.example.streamingapp.data.network.SoundApiClient
 import com.example.streamingapp.data.repository.PaginatedSoundsRepository
 import com.example.streamingapp.data.repository.PaginatedSoundsRepositoryImpl
-import com.example.streamingapp.service.MediaNotificationManager
+import com.example.streamingapp.service.NotificationManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -72,7 +72,7 @@ object AppModule {
     @Provides
     fun provideNotificationManager(
         @ApplicationContext context: Context, player: ExoPlayer
-    ): MediaNotificationManager {
-        return MediaNotificationManager(context, player)
+    ): NotificationManager {
+        return NotificationManager(context, player)
     }
 }
