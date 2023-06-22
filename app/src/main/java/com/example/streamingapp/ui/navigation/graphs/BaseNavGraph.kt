@@ -1,6 +1,7 @@
 package com.example.streamingapp.ui.navigation.graphs
 
 import androidx.compose.runtime.Composable
+import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,6 +10,7 @@ import androidx.navigation.navArgument
 import com.example.streamingapp.ui.home.HomeScreen
 import com.example.streamingapp.ui.player.PlayerScreen
 
+@UnstableApi
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
     NavHost(
