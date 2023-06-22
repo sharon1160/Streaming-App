@@ -4,9 +4,10 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
-import androidx.media3.common.util.Log
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.streamingapp.data.model.DetailedSound
 import com.example.streamingapp.domain.usecase.GetSoundUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -34,27 +35,36 @@ class PlayerViewModel @Inject constructor(
             _uiState.update {
                 it.copy(currentPosition = player.currentPosition)
             }
-            Log.e("aaa","${player.currentPosition}")
             delay(1000)
         }
     }
 
     @UnstableApi
-    fun loadSound(url: String) {
-        val mediaItem = MediaItem.fromUri(Uri.parse(url))
+    fun loadSound(sound: DetailedSound) {
+        val mediaItem = MediaItem.Builder()
+            .setUri(sound.previews["preview-hq-mp3"])
+            .setMediaMetadata(
+                MediaMetadata.Builder()
+                    .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)
+                    .setArtworkUri(Uri.parse(sound.images["waveform_l"]))
+                    .setAlbumTitle(sound.name)
+                    .setDisplayTitle(sound.username)
+                    .build()
+            )
+            .build()
         player.setMediaItem(mediaItem)
         player.prepare()
     }
 
     fun playPauseSound() {
-        if (player.isPlaying) {
+        updateSeekBarJob = if (player.isPlaying) {
             player.pause()
             updateSeekBarJob?.cancel()
-            updateSeekBarJob = null
+            null
         } else {
             player.play()
             updateSeekBarJob?.cancel()
-            updateSeekBarJob = updateSlider()
+            updateSlider()
         }
     }
 
@@ -64,9 +74,7 @@ class PlayerViewModel @Inject constructor(
             _uiState.update {
                 it.copy(currentSound = getSoundUseCase.invoke(id = id.toString()))
             }
-            selectedSound?.previews?.get("preview-hq-mp3")?.let {
-                loadSound(it)
-            }
+            selectedSound?.let { loadSound(it) }
         }
     }
 
