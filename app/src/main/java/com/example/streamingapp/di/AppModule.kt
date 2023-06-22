@@ -1,5 +1,7 @@
 package com.example.streamingapp.di
 
+import android.content.Context
+import androidx.media3.exoplayer.ExoPlayer
 import com.example.streamingapp.data.network.AuthInterceptor
 import com.example.streamingapp.data.network.SoundApiClient
 import com.example.streamingapp.data.repository.PaginatedSoundsRepository
@@ -7,6 +9,7 @@ import com.example.streamingapp.data.repository.PaginatedSoundsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -37,6 +40,13 @@ object AppModule {
     @Provides
     fun provideApiClient(retrofit: Retrofit): SoundApiClient {
         return retrofit.create(SoundApiClient::class.java)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideExoplayer(@ApplicationContext context: Context): ExoPlayer {
+        return ExoPlayer.Builder(context).build()
     }
 
     @Singleton
