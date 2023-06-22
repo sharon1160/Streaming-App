@@ -27,7 +27,7 @@ class PlayerViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(PlayerUiState())
     val uiState = _uiState.asStateFlow()
 
-    var updateSeekBarJob: Job? = null
+    private var updateSeekBarJob: Job? = null
 
     private fun updateSlider() = viewModelScope.launch {
         while (true) {
@@ -37,10 +37,6 @@ class PlayerViewModel @Inject constructor(
             Log.e("aaa","${player.currentPosition}")
             delay(1000)
         }
-    }
-
-    init {
-        Log.e("depuracion","${player.playbackState}")
     }
 
     @UnstableApi
@@ -78,5 +74,32 @@ class PlayerViewModel @Inject constructor(
         _uiState.update {
             it.copy(isPlaying = newValue)
         }
+    }
+
+    fun fastForward() {
+        val forwardTo = player.currentPosition + DEFAULT_FORWARD
+        if (forwardTo > player.duration) {
+            seekTo(player.duration)
+        } else {
+            seekTo(forwardTo)
+        }
+    }
+
+    fun rewind() {
+        val rewindTo = player.currentPosition - DEFAULT_REWIND
+        if (rewindTo < 0) {
+            seekTo(0)
+        } else {
+            seekTo(rewindTo)
+        }
+    }
+
+    private fun seekTo(position: Long) {
+        player.seekTo(position)
+    }
+
+    companion object {
+        const val DEFAULT_FORWARD = 15 * 1000
+        const val DEFAULT_REWIND = 15 * 1000
     }
 }

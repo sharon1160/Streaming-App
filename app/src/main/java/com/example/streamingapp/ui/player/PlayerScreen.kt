@@ -69,8 +69,8 @@ fun PlayerScreen(
             playerViewModel::updateIsPlaying,
             uiState.isPlaying,
             playerViewModel::playPauseSound,
-            { },
-            { },
+            playerViewModel::fastForward,
+            playerViewModel::rewind,
             uiState.currentPosition
         )
     }
