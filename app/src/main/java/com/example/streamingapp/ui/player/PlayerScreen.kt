@@ -35,6 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -45,6 +46,8 @@ import com.example.streamingapp.ui.home.Message
 import com.example.streamingapp.ui.theme.Roboto
 import com.example.streamingapp.ui.theme.StreamingAppTheme
 
+
+@UnstableApi
 @Composable
 fun PlayerScreen(
     playerViewModel: PlayerViewModel = hiltViewModel(),
@@ -65,7 +68,7 @@ fun PlayerScreen(
             uiState.currentSound,
             playerViewModel::updateIsPlaying,
             uiState.isPlaying,
-            { },
+            playerViewModel::playPauseSound,
             { },
             { },
             uiState.currentPosition
