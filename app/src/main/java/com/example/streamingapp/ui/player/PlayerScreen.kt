@@ -51,22 +51,15 @@ import com.example.streamingapp.ui.theme.StreamingAppTheme
 @Composable
 fun PlayerScreen(
     playerViewModel: PlayerViewModel = hiltViewModel(),
-    navController: NavHostController,
-    id: Int?
+    navController: NavHostController
 ) {
-
     val uiState by playerViewModel.uiState.collectAsState()
     val navigationToBack = { navController.popBackStack() }
-
-    id?.let { soundId ->
-        playerViewModel.searchSoundById(soundId)
-    }
 
     StreamingAppTheme {
         PlayerScreenContent(
             navigationToBack,
             uiState.currentSound,
-            playerViewModel::updateIsPlaying,
             uiState.isPlaying,
             playerViewModel::playPauseSound,
             playerViewModel::fastForward,
@@ -80,7 +73,6 @@ fun PlayerScreen(
 fun PlayerScreenContent(
     navigationToBack: () -> Boolean,
     currentSound: DetailedSound?,
-    updateIsPlaying: (Boolean) -> Unit,
     isPlaying: Boolean,
     playPauseSound: () -> Unit,
     fastForward:() -> Unit,
@@ -176,7 +168,6 @@ fun PlayerScreenContent(
                             modifier = Modifier.size(60.dp),
                             onClick = {
                                 playPauseSound()
-                                updateIsPlaying(!isPlaying)
                             }
                         ) {
                             val icon = if(isPlaying) {
@@ -237,6 +228,14 @@ fun PlayerSlider(currentPosition: Long, duration: Float) {
 @Composable
 fun PlayerScreenPreview() {
     StreamingAppTheme {
-        PlayerScreenContent({ false }, null, {}, false, {}, {}, {}, 0)
+        PlayerScreenContent(
+            navigationToBack = { false },
+            currentSound = null,
+            isPlaying = false,
+            playPauseSound = {},
+            fastForward = {},
+            rewind = {},
+            currentPosition = 0
+        )
     }
 }
