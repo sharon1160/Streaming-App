@@ -65,7 +65,7 @@ fun HomeScreen(
     val paginatedSounds = homeViewModel.paginatedSounds.collectAsLazyPagingItems()
     val uiState by homeViewModel.uiState.collectAsState()
 
-    val navigateToPlayer = { id: Int -> navController.navigate("player/$id")}
+    val navigateToPlayer = { id: Int -> navController.navigate("player/$id") }
 
     StreamingAppTheme {
         HomeScreenContent(
@@ -340,11 +340,23 @@ fun SearchSoundBar(
     ) {}
 }
 
-
 @Preview
 @Composable
 fun HomeScreenPreview() {
     StreamingAppTheme {
         HomeScreenContent("", {}, null, {}, {})
+    }
+}
+
+@Preview
+@Composable
+fun HomeScreenPreview2() {
+    StreamingAppTheme {
+        val sound = Sound(
+            id = 1,
+            name = "Name",
+            username = "Username"
+        )
+        ListItem(sound = sound, navigateToPlayer = {})
     }
 }
