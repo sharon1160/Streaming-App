@@ -34,6 +34,8 @@ class PlayerViewModel @Inject constructor(
 
     init {
         if (player.isPlaying) {
+            seekTo(0)
+            player.playWhenReady = false
             player.stop()
             updateIsPlaying(false)
         }
