@@ -26,9 +26,8 @@ fun HomeNavGraph(navController: NavHostController) {
             arguments = listOf(
                 navArgument("id") { type = NavType.IntType }
             )
-        ) { backStackEntry ->
-            val id: Int? = backStackEntry.arguments?.getInt("id")
-            PlayerScreen(navController = navController, id = id)
+        ) {
+            PlayerScreen(navController = navController)
         }
     }
 }
