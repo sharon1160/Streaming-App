@@ -1,6 +1,7 @@
 package com.example.streamingapp.ui.player
 
 import android.net.Uri
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
@@ -22,20 +23,37 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayerViewModel @Inject constructor(
     private val getSoundUseCase: GetSoundUseCase,
-    private val player: ExoPlayer
+    private val player: ExoPlayer,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
+    private val soundId: Int? = savedStateHandle["id"]
     private val _uiState = MutableStateFlow(PlayerUiState())
     val uiState = _uiState.asStateFlow()
 
     private var updateSeekBarJob: Job? = null
 
+    init {
+        if (player.isPlaying) {
+            player.stop()
+            updateIsPlaying(false)
+        }
+        soundId?.let {
+            searchSoundById(soundId)
+        }
+    }
+
     private fun updateSlider() = viewModelScope.launch {
         while (true) {
+            if (player.duration <= uiState.value.currentPosition){
+                player.seekTo(0)
+                player.pause()
+                updateIsPlaying(false)
+                updateSeekBarJob?.cancel()
+            }
             _uiState.update {
                 it.copy(currentPosition = player.currentPosition)
             }
-            delay(1000)
+            delay(500)
         }
     }
 
@@ -60,15 +78,17 @@ class PlayerViewModel @Inject constructor(
         updateSeekBarJob = if (player.isPlaying) {
             player.pause()
             updateSeekBarJob?.cancel()
+            updateIsPlaying(false)
             null
         } else {
             player.play()
             updateSeekBarJob?.cancel()
+            updateIsPlaying(true)
             updateSlider()
         }
     }
 
-    fun searchSoundById(id: Int) {
+    private fun searchSoundById(id: Int) {
         viewModelScope.launch {
             val selectedSound = getSoundUseCase.invoke(id = id.toString())
             _uiState.update {
@@ -78,7 +98,7 @@ class PlayerViewModel @Inject constructor(
         }
     }
 
-    fun updateIsPlaying(newValue: Boolean) {
+    private fun updateIsPlaying(newValue: Boolean) {
         _uiState.update {
             it.copy(isPlaying = newValue)
         }
@@ -104,6 +124,9 @@ class PlayerViewModel @Inject constructor(
 
     private fun seekTo(position: Long) {
         player.seekTo(position)
+        _uiState.update {
+            it.copy(currentPosition = player.currentPosition)
+        }
     }
 
     companion object {
