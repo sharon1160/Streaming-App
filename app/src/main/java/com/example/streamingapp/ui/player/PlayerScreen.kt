@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,6 +42,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.streamingapp.R
+import com.example.streamingapp.core.util.TestTags
 import com.example.streamingapp.data.model.DetailedSound
 import com.example.streamingapp.ui.home.Message
 import com.example.streamingapp.ui.theme.Roboto
@@ -84,7 +86,8 @@ fun PlayerScreenContent(
             Box(
                 modifier = Modifier
                     .padding(it)
-                    .fillMaxHeight(),
+                    .fillMaxHeight()
+                    .testTag(TestTags.MUSIC_DETAILS),
                 contentAlignment = Alignment.Center
             ) {
                 Row(

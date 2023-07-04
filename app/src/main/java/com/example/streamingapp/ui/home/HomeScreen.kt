@@ -41,6 +41,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,6 +54,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.streamingapp.R
+import com.example.streamingapp.core.util.TestTags
 import com.example.streamingapp.data.model.Sound
 import com.example.streamingapp.ui.theme.Roboto
 import com.example.streamingapp.ui.theme.StreamingAppTheme
@@ -112,7 +114,9 @@ fun HomeScreenContent(
 
 @Composable
 fun SoundsList(paginatedSounds: LazyPagingItems<Sound>, navigateToPlayer: (Int) -> Unit) {
-    Box {
+    Box(
+        modifier = Modifier.testTag(TestTags.SOUNDS_LIST)
+    ) {
         val isLandscape =
             LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
         if (!isLandscape) {
@@ -229,6 +233,7 @@ fun ListItem(
                     .clickable {
                         navigateToPlayer(sound.id)
                     }
+                    .testTag(TestTags.SOUND_ITEM)
             ) {
                 AsyncImage(
                     model = stringResource(R.string.image_place_holder),
@@ -270,7 +275,8 @@ fun Message(text: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .testTag(TestTags.LOADING_MESSAGE),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
