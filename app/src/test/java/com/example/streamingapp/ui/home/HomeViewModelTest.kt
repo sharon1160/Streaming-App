@@ -24,7 +24,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
+@ExperimentalCoroutinesApi
 class HomeViewModelTest {
 
     @RelaxedMockK
@@ -35,7 +35,6 @@ class HomeViewModelTest {
     @get:Rule
     var rule: InstantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
@@ -43,7 +42,6 @@ class HomeViewModelTest {
         homeViewModel = HomeViewModel(paginatedSoundsRepository)
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown() {
         Dispatchers.resetMain()
