@@ -89,8 +89,7 @@ class PlayerViewModel @Inject constructor(
             updateSlider()
         }
     }
-
-    private fun searchSoundById(id: Int) {
+    fun searchSoundById(id: Int) {
         viewModelScope.launch {
             val selectedSound = getSoundUseCase.invoke(id = id.toString())
             _uiState.update {
